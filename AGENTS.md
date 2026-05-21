@@ -16,14 +16,14 @@
 
 ## 目前進度
 - [x] 建立 AGENTS.md
-- [ ] 確認並初始化 Git / 建立 .gitignore
-- [ ] 建立 GitHub 私有 Repo
-- [ ] 建立 Obsidian 對應資料夾與工作流程筆記
+- [x] 確認並初始化 Git / 建立 .gitignore
+- [x] 建立 GitHub 私有 Repo
+- [x] 建立 Obsidian 對應資料夾與工作流程筆記
 
 ## 最近更動紀錄
 | 日期 | 變更摘要 | GDrive | Obsidian | GitHub |
 |------|----------|--------|----------|--------|
-| 2026/05/21 | 專案初始化與建立 AGENTS.md | ✅ | 🔄 | 🔄 |
+| 2026/05/21 | 專案初始化與建立 AGENTS.md | ✅ | ✅ | ✅ |
 
 ## 資料夾結構
 ```
