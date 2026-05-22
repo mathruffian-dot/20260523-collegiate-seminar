@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>免費 OpenCode 教師 Agent 實戰工作坊</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5b6472;
+      --line: #d8dde5;
+      --paper: #f7f4ee;
+      --panel: #ffffff;
+      --teal: #0f766e;
+      --coral: #c2410c;
+      --blue: #1d4ed8;
+      --yellow: #facc15;
+      --green: #15803d;
+      --shadow: 0 18px 45px rgba(23, 32, 42, .14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: clamp(28px, 4vw, 64px);
+      background:
+        linear-gradient(90deg, rgba(15, 118, 110, .08), transparent 38%),
+        radial-gradient(circle at top right, rgba(250, 204, 21, .18), transparent 28%),
+        var(--paper);
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 940px;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5.2vw, 64px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: clamp(22px, 2.8vw, 34px);
+      line-height: 1.25;
+    }
+
+    p, li {
+      font-size: clamp(18px, 2vw, 28px);
+      line-height: 1.55;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.2em;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 700;
+    }
+
+    .subtitle {
+      max-width: 900px;
+      color: var(--muted);
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.45;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(23, 32, 42, .08);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(21px, 2.2vw, 30px);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      color: #fff;
+      font-weight: 800;
+      background: var(--teal);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 12px 18px;
+      align-items: stretch;
+      max-width: 1060px;
+    }
+
+    .time {
+      padding: 16px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 800;
+      background: var(--teal);
+      font-size: clamp(18px, 1.8vw, 24px);
+      text-align: center;
+    }
+
+    .item {
+      padding: 16px 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .9);
+      font-size: clamp(18px, 1.9vw, 26px);
+      line-height: 1.4;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: clamp(22px, 4vw, 48px);
+      align-items: center;
+    }
+
+    .visual {
+      min-height: 420px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: grid;
+      place-items: center;
+    }
+
+    .agent-map {
+      width: min(560px, 100%);
+      display: grid;
+      gap: 16px;
+    }
+
+    .node {
+      padding: 18px;
+      border-radius: 8px;
+      border: 2px solid var(--line);
+      background: #fff;
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .node.main {
+      color: #fff;
+      border-color: var(--teal);
+      background: var(--teal);
+    }
+
+    .node-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .task-list {
+      counter-reset: task;
+      display: grid;
+      gap: 16px;
+      max-width: 1080px;
+    }
+
+    .task {
+      counter-increment: task;
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .task::before {
+      content: counter(task);
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--coral);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .prompt {
+      padding: 24px;
+      border-left: 8px solid var(--blue);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      font-size: clamp(20px, 2.3vw, 32px);
+      line-height: 1.55;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .route .card {
+      min-height: 190px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 28px;
+      right: 28px;
+      bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .progress {
+      width: 220px;
+      height: 8px;
+      border-radius: 99px;
+      background: rgba(23, 32, 42, .14);
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: var(--teal);
+    }
+
+    .controls {
+      position: fixed;
+      right: 28px;
+      top: 24px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    button {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .9);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: var(--teal);
+    }
+
+    .print-hint {
+      font-size: clamp(16px, 1.6vw, 22px);
+      color: var(--muted);
+    }
+
+    @media (max-width: 860px) {
+      body {
+        overflow: auto;
+      }
+
+      .deck {
+        height: auto;
+      }
+
+      .slide,
+      .slide.active {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+      }
+
+      .slide:not(.active) {
+        display: none;
+      }
+
+      .split,
+      .cols-2,
+      .cols-3,
+      .route {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 300px;
+      }
+    }
+
+    @media print {
+      body {
+        overflow: visible;
+        background: #fff;
+      }
+
+      .deck {
+        height: auto;
+      }
+
+      .slide,
+      .slide.active {
+        position: relative;
+        display: flex;
+        min-height: 100vh;
+        page-break-after: always;
+      }
+
+      .controls,
+      .footer {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <section class="slide active">
+      <p class="eyebrow">2026/05/23 大專教師研習</p>
+      <h1>免費 OpenCode 教師 Agent 實戰工作坊</h1>
+      <p class="subtitle">先完成 OpenCode，再用 Agent 處理一般教學與行政事務。進階工具放到課後影片接續自學。</p>
+    </section>
+
+    <section class="slide">
+      <div class="split">
+        <div>
+          <p class="eyebrow">今天只追求一件事</p>
+          <h2>讓老師真的用起來</h2>
+          <p class="subtitle">不急著做完整專案，不先碰 Obsidian 工作流；先學會請 Agent 讀檔、整理、填表、產出教材。</p>
+        </div>
+        <div class="visual">
+          <div class="agent-map">
+            <div class="node main">OpenCode Agent</div>
+            <div class="node-row">
+              <div class="node">讀資料</div>
+              <div class="node">改檔案</div>
+              <div class="node">產出教材</div>
+            </div>
+            <div class="node-row">
+              <div class="node">整理行政</div>
+              <div class="node">填寫表格</div>
+              <div class="node">回報位置</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">三小時流程</p>
+      <h2>低門檻、可跟做、可課後延伸</h2>
+      <div class="timeline">
+        <div class="time">0:00-0:15</div><div class="item">Agent 入門：它不是聊天工具，而是會處理檔案的助理</div>
+        <div class="time">0:15-0:45</div><div class="item">完成 OpenCode：安裝、開啟、連上可用模型</div>
+        <div class="time">0:45-1:05</div><div class="item">影片導覽：只看 GitHub、Firebase、NotebookLM 的註冊片段</div>
+        <div class="time">1:05-1:30</div><div class="item">任務一：整理檔案、分類、改名、產出清單</div>
+        <div class="time">1:30-1:40</div><div class="item">休息與 TA 補救安裝</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">三小時流程</p>
+      <h2>後半段全部做一般事務</h2>
+      <div class="timeline">
+        <div class="time">1:40-2:05</div><div class="item">任務二：整理教材，產出摘要、重點、題目、活動建議</div>
+        <div class="time">2:05-2:30</div><div class="item">任務三：填寫例行事務表格、文件、試算表初稿</div>
+        <div class="time">2:30-2:50</div><div class="item">任務四：產出教學素材，包含學習單、簡報大綱、Rubric、公告文字</div>
+        <div class="time">2:50-2:58</div><div class="item">指令基本功：先計畫、保留原檔、標待補、回報位置</div>
+        <div class="time">2:58-3:00</div><div class="item">課後自學路線：Claude / Codex / OpenCode 基本功影片</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">工具註冊影片導覽</p>
+      <h2>只看需要註冊的部分</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <span class="tag">GH</span>
+          <strong>GitHub</strong>
+          <p>知道 repo、Pages、登入位置。今天不要求每個人都發布網站。</p>
+        </div>
+        <div class="card">
+          <span class="tag" style="background: var(--coral);">FB</span>
+          <strong>Firebase</strong>
+          <p>知道專案、Firestore、互動資料。先理解用途，課後再串接。</p>
+        </div>
+        <div class="card">
+          <span class="tag" style="background: var(--blue);">NL</span>
+          <strong>NotebookLM</strong>
+          <p>知道建立筆記本與上傳教材，用於摘要、問答、Podcast。</p>
+        </div>
+      </div>
+      <p class="print-hint">Obsidian 先跳過，避免現場過載；放到課後自學路線。</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">任務一</p>
+      <h2>整理檔案：讓 Agent 先做安全小事</h2>
+      <div class="split">
+        <div class="task-list">
+          <div class="task">盤點資料夾內有哪些檔案</div>
+          <div class="task">提出分類與命名規則</div>
+          <div class="task">保留原檔，另存整理後版本</div>
+          <div class="task">產出一份檔案清單</div>
+        </div>
+        <div class="prompt">請先看這個資料夾有哪些檔案，先不要修改。請提出整理計畫，確認後再幫我分類、改名，並把結果放到新的資料夾。</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">任務二</p>
+      <h2>整理教材：把資料變成可教的內容</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <strong>輸入</strong>
+          <p>PDF、Word、簡報文字、課程大綱、逐字稿、網頁資料。</p>
+        </div>
+        <div class="card">
+          <strong>輸出</strong>
+          <p>摘要、重點、問題清單、活動流程、課前預習、課後討論。</p>
+        </div>
+      </div>
+      <div class="prompt">請讀取這份教材，幫我整理成「課程重點、學生可能卡住的地方、5 題課堂提問、1 個小組活動」。</div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">任務三</p>
+      <h2>填寫例行表格：行政初稿先交給 Agent</h2>
+      <div class="grid cols-3">
+        <div class="card"><strong>文件</strong><p>會議紀錄、研習成果、課程計畫、教學反思。</p></div>
+        <div class="card"><strong>表格</strong><p>活動檢核表、課程盤點表、成果報告欄位。</p></div>
+        <div class="card"><strong>試算表</strong><p>欄位初填、資料清理、分類統計、待補清單。</p></div>
+      </div>
+      <div class="prompt">請先閱讀這份資料與表格範本。資料不足的欄位請填「待補」，不要自行編造。完成後另存新檔，並告訴我檔案位置。</div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">任務四</p>
+      <h2>產出教學素材：從草稿開始就很有用</h2>
+      <div class="task-list">
+        <div class="task">學習單：目標、任務、題目、反思欄</div>
+        <div class="task">簡報大綱：每頁標題、重點、互動問題</div>
+        <div class="task">Rubric：評分面向、等第描述、回饋語句</div>
+        <div class="task">公告文字：課前通知、作業說明、活動規則</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">指令基本功</p>
+      <h2>五句話讓 Agent 比較可靠</h2>
+      <div class="grid cols-2">
+        <div class="card"><strong>先不要動</strong><p>先看檔案，先說計畫，再等我確認。</p></div>
+        <div class="card"><strong>保留原檔</strong><p>不要刪除或覆蓋，整理後另存新版本。</p></div>
+        <div class="card"><strong>標記待補</strong><p>資料不足就寫待補，不要自行編造。</p></div>
+        <div class="card"><strong>回報位置</strong><p>完成後說清楚產出檔案在哪裡。</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">資料安全</p>
+      <h2>免費工具更要守住底線</h2>
+      <div class="grid cols-2">
+        <div class="card"><strong>可以示範</strong><p>假資料、公開教材、範例表格、去識別化資料。</p></div>
+        <div class="card"><strong>不要丟進去</strong><p>學生個資、成績細節、輔導紀錄、未公開研究資料。</p></div>
+      </div>
+      <p class="subtitle">現場任務一律使用假資料或公開資料；真正行政文件回去後也要人工複核。</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">課後影片自學路線</p>
+      <h2>今天先會用，回去再升級</h2>
+      <div class="route">
+        <div class="card"><strong>OpenCode 基本功</strong><p>免費模型、BYOK、離線模型、怎麼選工具。</p></div>
+        <div class="card"><strong>Claude 基本功</strong><p>GitHub、Firebase、1 書桌 + 3 家、教學專案範式。</p></div>
+        <div class="card"><strong>Codex 基本功</strong><p>外掛、技能、GitHub、第二大腦與工作流接力。</p></div>
+        <div class="card"><strong>懶人包</strong><p>00 環境建置、01 NotebookLM、02 GitHub、05 Firebase。</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">收斂</p>
+      <h2>今天的成果</h2>
+      <ul>
+        <li>完成 OpenCode，知道如何連上可用模型。</li>
+        <li>會請 Agent 整理檔案、讀教材、填表格、產出教學素材。</li>
+        <li>知道 GitHub、Firebase、NotebookLM 是課後延伸工具。</li>
+        <li>知道免費工具的資料安全邊界。</li>
+      </ul>
+      <p class="subtitle">先把手感練起來，再往完整教師 Agent 工作流前進。</p>
+    </section>
+  </main>
+
+  <div class="controls" aria-label="簡報控制">
+    <button type="button" id="prev" title="上一頁" aria-label="上一頁">‹</button>
+    <button type="button" id="next" title="下一頁" aria-label="下一頁">›</button>
+  </div>
+  <div class="footer">
+    <span id="counter">1 / 13</span>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <span>方向鍵或空白鍵換頁</span>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const counter = document.getElementById("counter");
+    const bar = document.getElementById("bar");
+    let index = 0;
+
+    function show(nextIndex) {
+      index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      bar.style.width = `${((index + 1) / slides.length) * 100}%`;
+      location.hash = `slide-${index + 1}`;
+    }
+
+    document.getElementById("prev").addEventListener("click", () => show(index - 1));
+    document.getElementById("next").addEventListener("click", () => show(index + 1));
+    document.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        show(index + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        show(index - 1);
+      }
+      if (event.key === "Home") show(0);
+      if (event.key === "End") show(slides.length - 1);
+    });
+
+    const hashMatch = location.hash.match(/slide-(\d+)/);
+    show(hashMatch ? Number(hashMatch[1]) - 1 : 0);
+  </script>
+</body>
+</html>
