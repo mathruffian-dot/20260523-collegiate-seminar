@@ -388,7 +388,7 @@
     <section class="slide active">
       <p class="eyebrow">2026/05/23 大專教師研習</p>
       <h1>生成式AI進化到代理人AI-在教學上的應用</h1>
-      <p class="subtitle">先完成 OpenCode，再用 Agent 處理一般教學與行政事務。進階工具放到課後影片接續自學。</p>
+      <p class="subtitle">先用 Google Antigravity 進入代理人 AI，再接續介紹 OpenCode。兩個工具用同一套教學任務：讀檔、整理、填表、產出教材。</p>
     </section>
 
     <section class="slide">
@@ -396,15 +396,15 @@
         <div>
           <p class="eyebrow">今天只追求一件事</p>
           <h2>讓老師真的用起來</h2>
-          <p class="subtitle">不急著做完整專案，不先碰 Obsidian 工作流；先學會請 Agent 讀檔、整理、填表、產出教材。</p>
+          <p class="subtitle">不急著做完整專案，不先碰 Obsidian 工作流；先學會請代理人 AI 讀檔、整理、填表、產出教材。</p>
         </div>
         <div class="visual">
           <div class="agent-map">
-            <div class="node main">OpenCode Agent</div>
+            <div class="node main">代理人 AI 工具</div>
             <div class="node-row">
-              <div class="node">讀資料</div>
-              <div class="node">改檔案</div>
-              <div class="node">產出教材</div>
+              <div class="node">Antigravity</div>
+              <div class="node">OpenCode</div>
+              <div class="node">同一套任務</div>
             </div>
             <div class="node-row">
               <div class="node">整理行政</div>
@@ -417,11 +417,61 @@
     </section>
 
     <section class="slide">
+      <p class="eyebrow">開頭方案</p>
+      <h2>先介紹 Google Antigravity</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <strong>它是什麼</strong>
+          <p>Google 的 agent-first development platform，不只是聊天側邊欄，而是讓代理人能規劃、執行、驗證任務。</p>
+        </div>
+        <div class="card">
+          <strong>為什麼先用它</strong>
+          <p>目前官方提供個人使用的免費額度，適合研習先降低入門門檻，再銜接 OpenCode。</p>
+        </div>
+        <div class="card">
+          <strong>它能操作什麼</strong>
+          <p>代理人可跨 editor、terminal、browser 工作，適合示範「從提示到實際完成任務」。</p>
+        </div>
+        <div class="card">
+          <strong>怎麼驗證結果</strong>
+          <p>Antigravity 會產生 Artifacts，例如工作清單、實作計畫、截圖或瀏覽器錄影，方便老師檢查。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">第二個工具</p>
+      <h2>再介紹 OpenCode</h2>
+      <div class="split">
+        <div>
+          <p class="subtitle">OpenCode 和 Antigravity 是同一類型的代理人工具：都不是只回答問題，而是能進入工作區完成任務。</p>
+          <p class="subtitle">考量額度與現場穩定度，今天先用 Antigravity 建立手感；OpenCode 作為第二套工具與後續延伸。</p>
+        </div>
+        <div class="visual">
+          <div class="agent-map">
+            <div class="node main">同一套教師任務</div>
+            <div class="node-row">
+              <div class="node">整理檔案</div>
+              <div class="node">整理教材</div>
+              <div class="node">填寫表格</div>
+            </div>
+            <div class="node-row">
+              <div class="node">Antigravity 先跑</div>
+              <div class="node">OpenCode 接著看</div>
+              <div class="node">結果人工確認</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <p class="eyebrow">三小時流程</p>
       <h2>低門檻、可跟做、可課後延伸</h2>
       <div class="timeline">
         <div class="time">0:00-0:15</div><div class="item">Agent 入門：它不是聊天工具，而是會處理檔案的助理</div>
-        <div class="time">0:15-0:45</div><div class="item">完成 OpenCode：安裝、開啟、連上可用模型</div>
+        <div class="time">0:15-0:35</div><div class="item">Google Antigravity：登入、介面、Agent Manager、Artifacts</div>
+        <div class="time">0:35-0:45</div><div class="item">OpenCode：同類型工具對照，說明今天任務可在兩邊重複使用</div>
         <div class="time">0:45-1:05</div><div class="item">影片導覽：只看 GitHub、Firebase、NotebookLM 的註冊片段</div>
         <div class="time">1:05-1:30</div><div class="item">任務一：整理檔案、分類、改名、產出清單</div>
         <div class="time">1:30-1:40</div><div class="item">休息與 TA 補救安裝</div>
@@ -436,7 +486,7 @@
         <div class="time">2:05-2:30</div><div class="item">任務三：填寫例行事務表格、文件、試算表初稿</div>
         <div class="time">2:30-2:50</div><div class="item">任務四：產出教學素材，包含學習單、簡報大綱、Rubric、公告文字</div>
         <div class="time">2:50-2:58</div><div class="item">成果整理：確認今天產出的檔案，選出一個回去能直接用的成果</div>
-        <div class="time">2:58-3:00</div><div class="item">課後自學路線：Claude / Codex / OpenCode 基本功影片</div>
+        <div class="time">2:58-3:00</div><div class="item">課後自學路線：Claude / OpenCode / Codex 基本功影片</div>
       </div>
     </section>
 
@@ -445,14 +495,14 @@
       <h2>只看需要註冊的部分</h2>
       <div class="grid cols-3">
         <div class="card">
-          <span class="tag">GH</span>
-          <strong>GitHub</strong>
-          <p>知道 repo、Pages、登入位置。今天不要求每個人都發布網站。</p>
+          <span class="tag">G</span>
+          <strong>Google / Gmail</strong>
+          <p>Antigravity 需要個人 Gmail 開始使用，也可銜接 NotebookLM 與 Firebase。</p>
         </div>
         <div class="card">
-          <span class="tag" style="background: var(--coral);">FB</span>
-          <strong>Firebase</strong>
-          <p>知道專案、Firestore、互動資料。先理解用途，課後再串接。</p>
+          <span class="tag" style="background: var(--coral);">GH</span>
+          <strong>GitHub</strong>
+          <p>知道 repo、Pages、登入位置。今天不要求每個人都發布網站。</p>
         </div>
         <div class="card">
           <span class="tag" style="background: var(--blue);">NL</span>
@@ -460,12 +510,12 @@
           <p>知道建立筆記本與上傳教材，用於摘要、問答、Podcast。</p>
         </div>
       </div>
-      <p class="print-hint">Obsidian 先跳過，避免現場過載；放到課後自學路線。</p>
+      <p class="print-hint">Firebase 只快速展示用途；Obsidian 先跳過，避免現場過載，放到課後自學路線。</p>
     </section>
 
     <section class="slide">
       <p class="eyebrow">任務一</p>
-      <h2>整理檔案：讓 Agent 先做安全小事</h2>
+      <h2>整理檔案：讓代理人先做安全小事</h2>
       <div class="split">
         <div class="task-list">
           <div class="task">盤點資料夾內有哪些檔案</div>
@@ -495,7 +545,7 @@
 
     <section class="slide">
       <p class="eyebrow">任務三</p>
-      <h2>填寫例行表格：行政初稿先交給 Agent</h2>
+      <h2>填寫例行表格：行政初稿先交給代理人</h2>
       <div class="grid cols-3">
         <div class="card"><strong>文件</strong><p>會議紀錄、研習成果、課程計畫、教學反思。</p></div>
         <div class="card"><strong>表格</strong><p>活動檢核表、課程盤點表、成果報告欄位。</p></div>
@@ -540,10 +590,10 @@
       <p class="eyebrow">課後影片自學路線</p>
       <h2>今天先會用，回去再升級</h2>
       <div class="route">
-        <div class="card"><strong>OpenCode 基本功</strong><p>免費模型、BYOK、離線模型、怎麼選工具。</p></div>
+        <div class="card"><strong>Antigravity</strong><p>Agent Manager、Artifacts、browser / terminal 驗證與額度觀念。</p></div>
         <div class="card"><strong>Claude 基本功</strong><p>GitHub、Firebase、1 書桌 + 3 家、教學專案範式。</p></div>
-        <div class="card"><strong>Codex 基本功</strong><p>外掛、技能、GitHub、第二大腦與工作流接力。</p></div>
-        <div class="card"><strong>懶人包</strong><p>00 環境建置、01 NotebookLM、02 GitHub、05 Firebase。</p></div>
+        <div class="card"><strong>OpenCode 基本功</strong><p>免費模型、BYOK、離線模型、怎麼選工具。</p></div>
+        <div class="card"><strong>懶人包</strong><p>NotebookLM、GitHub、Firebase 先作為課後延伸。</p></div>
       </div>
     </section>
 
@@ -551,8 +601,9 @@
       <p class="eyebrow">收斂</p>
       <h2>今天的成果</h2>
       <ul>
-        <li>完成 OpenCode，知道如何連上可用模型。</li>
-        <li>會請 Agent 整理檔案、讀教材、填表格、產出教學素材。</li>
+        <li>認識 Google Antigravity 與 OpenCode 兩種代理人 AI 工具。</li>
+        <li>理解為什麼先用 Antigravity，再用 OpenCode 接續練習。</li>
+        <li>會請代理人整理檔案、讀教材、填表格、產出教學素材。</li>
         <li>知道 GitHub、Firebase、NotebookLM 是課後延伸工具。</li>
         <li>知道免費工具的資料安全邊界。</li>
       </ul>
