@@ -149,6 +149,12 @@
       max-width: 1060px;
     }
 
+    .timeline.compact {
+      grid-template-columns: 132px 1fr;
+      gap: 8px 12px;
+      max-width: 100%;
+    }
+
     .time {
       padding: 16px;
       border-radius: 8px;
@@ -159,6 +165,12 @@
       text-align: center;
     }
 
+    .timeline.compact .time {
+      padding: 10px 12px;
+      font-size: clamp(18px, 1.65vw, 25px);
+      line-height: 1.18;
+    }
+
     .item {
       padding: 16px 20px;
       border: 1px solid var(--line);
@@ -166,6 +178,16 @@
       background: rgba(255, 255, 255, .9);
       font-size: clamp(24px, 2.35vw, 34px);
       line-height: 1.4;
+    }
+
+    .timeline.compact .item {
+      padding: 10px 14px;
+      font-size: clamp(18px, 1.7vw, 26px);
+      line-height: 1.25;
+    }
+
+    .flow-slide.active {
+      gap: 14px;
     }
 
     .split {
@@ -465,28 +487,29 @@
       </div>
     </section>
 
-    <section class="slide">
-      <p class="eyebrow">三小時流程</p>
-      <h2>低門檻、可跟做、可課後延伸</h2>
-      <div class="timeline">
-        <div class="time">0:00-0:15</div><div class="item">Agent 入門：它不是聊天工具，而是會處理檔案的助理</div>
-        <div class="time">0:15-0:35</div><div class="item">Google Antigravity：登入、介面、Agent Manager、Artifacts</div>
-        <div class="time">0:35-0:45</div><div class="item">OpenCode：同類型工具對照，說明今天任務可在兩邊重複使用</div>
-        <div class="time">0:45-1:05</div><div class="item">影片導覽：只看 GitHub、Firebase、NotebookLM 的註冊片段</div>
-        <div class="time">1:05-1:30</div><div class="item">任務一：整理檔案、分類、改名、產出清單</div>
-        <div class="time">1:30-1:40</div><div class="item">休息與 TA 補救安裝</div>
+    <section class="slide flow-slide">
+      <p class="eyebrow">六小時流程</p>
+      <h2>上午：先把兩個代理人工具用起來</h2>
+      <div class="timeline compact">
+        <div class="time">0:00-0:25</div><div class="item">Agent 入門：生成式 AI 到代理人 AI，差別在「能不能進工作區做事」</div>
+        <div class="time">0:25-1:10</div><div class="item">Google Antigravity：登入、介面、Agent Manager、Artifacts、瀏覽器與終端機操作</div>
+        <div class="time">1:10-1:35</div><div class="item">OpenCode：同類型工具對照，說明同一組任務如何搬到第二個工具重做</div>
+        <div class="time">1:35-1:55</div><div class="item">影片導覽：只看 GitHub、Firebase、NotebookLM 的註冊與登入片段</div>
+        <div class="time">1:55-2:40</div><div class="item">任務一：整理檔案、分類、改名、產出清單，TA 協助卡住的安裝與登入</div>
+        <div class="time">2:40-3:00</div><div class="item">休息與補救：確認每位老師至少完成一個可展示的檔案整理成果</div>
       </div>
     </section>
 
-    <section class="slide">
-      <p class="eyebrow">三小時流程</p>
-      <h2>後半段全部做一般事務</h2>
-      <div class="timeline">
-        <div class="time">1:40-2:05</div><div class="item">任務二：整理教材，產出摘要、重點、題目、活動建議</div>
-        <div class="time">2:05-2:30</div><div class="item">任務三：填寫例行事務表格、文件、試算表初稿</div>
-        <div class="time">2:30-2:50</div><div class="item">任務四：產出教學素材，包含學習單、簡報大綱、Rubric、公告文字</div>
-        <div class="time">2:50-2:58</div><div class="item">成果整理：確認今天產出的檔案，選出一個回去能直接用的成果</div>
-        <div class="time">2:58-3:00</div><div class="item">課後自學路線：Claude / OpenCode / Codex 基本功影片</div>
+    <section class="slide flow-slide">
+      <p class="eyebrow">六小時流程</p>
+      <h2>下午：全部做一般教學與行政事務</h2>
+      <div class="timeline compact">
+        <div class="time">3:00-3:45</div><div class="item">任務二：整理教材，產出摘要、重點、題目、活動建議</div>
+        <div class="time">3:45-4:30</div><div class="item">任務三：填寫例行事務表格、文件、試算表初稿，資料不足標記待補</div>
+        <div class="time">4:30-5:10</div><div class="item">任務四：產出教學素材，包含學習單、簡報大綱、Rubric、公告文字</div>
+        <div class="time">5:10-5:40</div><div class="item">雙工具回看：同一個任務在 Antigravity 與 OpenCode 的差異、額度與穩定度</div>
+        <div class="time">5:40-5:55</div><div class="item">成果整理：確認今天產出的檔案，選出一個回去能直接用的成果</div>
+        <div class="time">5:55-6:00</div><div class="item">課後自學路線：Antigravity / OpenCode / Claude 基本功影片</div>
       </div>
     </section>
 
